@@ -1,5 +1,7 @@
 # Payroll Web App: Development Progress
 
+**Important Note:** As of the last update, the project implementation has not yet begun. This document outlines the planned phases and tasks.
+
 This document tracks the completed and remaining tasks for the Payroll Web Application development, based on the initial development plan and the updated technology stack.
 
 ## Last Updated: 2025-06-13 02:01 AM (America/New_York)
