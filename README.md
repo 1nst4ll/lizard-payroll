@@ -34,27 +34,6 @@ For more detailed information on the tech stack, please refer to `docs/tech-stac
 
 Detailed instructions on setting up the development environment, running the application locally, and deployment procedures can be found in the `docs/` directory.
 
-### Current Development Status
-
-This project is actively under development. The following phases have been completed or are in progress:
-
-**Phase 1: Project Setup and Backend Foundation (Completed)**
-*   **Verify Development Environment:** Confirmed PHP, Composer, Node.js, and Laravel Installer are installed.
-*   **Backend Project Initialization:** Created Laravel project in `backend/` directory with Jetstream (Inertia Stack) and teams support.
-*   **Database Integration:** Configured `.env` file with PostgreSQL database credentials and ran initial migrations. Create admin user admin/admin123!@#
-*   **Authentication & Authorization Setup:** Integrated Laravel Socialite and Spatie Laravel Permission for Google OAuth and RBAC.
-
-**Phase 2: Frontend Setup and Core UI (Completed)**
-*   **Frontend Project Initialization:** Vue.js frontend is integrated with the Laravel backend via Jetstream (Inertia Stack).
-*   **UI/UX Implementation:** Tailwind CSS is configured, and `shadcn/ui` integration is prepared.
-*   **Authentication UI:** Jetstream provides pre-built login, registration, and dashboard views.
-
-**Phase 3: Feature Development - Public Holidays, Departments, Job Roles (Pending)**
-*   **Public Holidays:** Implementation of CRUD APIs for public holidays is pending.
-*   **Departments:** Implementation of CRUD APIs for departments is pending.
-*   **Job Roles:** Implementation of CRUD APIs for job roles is pending.
-
-Next steps involve continuing with feature development as outlined in the development plan.
 
 ## Documentation
 

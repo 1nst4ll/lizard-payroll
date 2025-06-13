@@ -24,7 +24,7 @@ This document tracks the completed and remaining tasks for the Payroll Web Appli
     - [ ] Implemented Controllers and Routes for Payroll Settings (`/settings/payroll` GET/PUT).
     - [ ] Implemented authorization using Spatie Permission for these endpoints.
 
-## Phase 2: Frontend Setup and Core UI (Completed)
+## Phase 2: Frontend Setup and Core UI (Pending)
 
 - [ ] **Frontend Project Initialization:**
     - [ ] Vue.js frontend is integrated with the Laravel backend via Jetstream (Inertia Stack).
