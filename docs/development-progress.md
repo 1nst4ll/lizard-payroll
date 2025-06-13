@@ -39,34 +39,56 @@ This document tracks the completed and remaining tasks for the Payroll Web Appli
 
 ## Phase 3: Feature Development - Public Holidays, Departments, Job Roles (Pending)
 
-- [ ] **Public Holidays:**
-    - [ ] Define `PublicHoliday` Eloquent Model.
-    - [ ] Implement Controllers and Routes for Public Holidays (CRUD operations, `findAll` with year filter).
-    - [ ] Implement authorization for public holiday endpoints.
-- [ ] **Departments:**
-    - [ ] Define `Department` Eloquent Model.
-    - [ ] Implement Controllers and Routes for Departments (CRUD operations).
-    - [ ] Implement authorization for department endpoints.
-- [ ] **Job Roles:**
-    - [ ] Define `JobRole` Eloquent Model.
-    - [ ] Implement Controllers and Routes for Job Roles (CRUD operations, `findAll` with departmentId filter).
-    - [ ] Implement authorization for job role endpoints.
+### Public Holidays
+- [ ] Backend: Define `PublicHoliday` Eloquent Model and Migrations.
+- [ ] Backend: Implement API Endpoints (CRUD).
+- [ ] Backend: Implement Authorization (Spatie Permission).
+- [ ] Frontend: Create Vue Components for List View.
+- [ ] Frontend: Create Vue Components for Add/Edit Form (Modal/Page).
+- [ ] Frontend: Integrate API calls for data fetching and submission.
+- [ ] Frontend: Implement UI for authorization (e.g., hide/show elements based on user role).
 
-## Remaining Phases:
+### Departments
+- [ ] Backend: Define `Department` Eloquent Model and Migrations.
+- [ ] Backend: Implement API Endpoints (CRUD).
+- [ ] Backend: Implement Authorization (Spatie Permission).
+- [ ] Frontend: Create Vue Components for List View.
+- [ ] Frontend: Create Vue Components for Add/Edit Form (Modal/Page).
+- [ ] Frontend: Integrate API calls for data fetching and submission.
+- [ ] Frontend: Implement UI for authorization (e.g., hide/show elements based on user role).
+
+### Job Roles
+- [ ] Backend: Define `JobRole` Eloquent Model and Migrations.
+- [ ] Backend: Implement API Endpoints (CRUD).
+- [ ] Backend: Implement Authorization (Spatie Permission).
+- [ ] Frontend: Create Vue Components for List View.
+- [ ] Frontend: Create Vue Components for Add/Edit Form (Modal/Page).
+- [ ] Frontend: Integrate API calls for data fetching and submission.
+- [ ] Frontend: Implement UI for authorization (e.g., hide/show elements based on user role).
 
 ## Phase 4: Employee Management (Pending)
 
-- [ ] **Backend Endpoints:** Implement full CRUD APIs for Employees and Employee Documents.
-- [ ] **Frontend UI:** Develop the Employee List View with search and filter capabilities, and the Employee Profile View with tabbed sections and conditional fields for documents.
+- [ ] Backend: Implement full CRUD APIs for Employees and Employee Documents.
+- [ ] Frontend: Develop the Employee List View with search and filter capabilities.
+- [ ] Frontend: Develop the Employee Profile View with tabbed sections and conditional fields for documents.
 
 ## Phase 5: Punch Management & Reporting (Pending)
 
-- [ ] **Backend Endpoints:** Implement APIs for importing punches, retrieving punches, manual punch edits, and the autofix functionality. Also, implement the Hours Report generation API.
-- [ ] **Frontend UI:** Develop the Punch Management UI, including file import, data display, manual editing, and autofix features. Develop the Hours Report UI with filtering and detailed display.
+### Punch Management
+- [ ] Backend: Implement API for importing punches (file upload/external DB).
+- [ ] Backend: Implement API for retrieving punches.
+- [ ] Backend: Implement API for manual punch edits.
+- [ ] Backend: Implement API for autofix functionality.
+- [ ] Frontend: Develop the Punch Management UI (file import, data display, manual editing, autofix).
+
+### Reporting
+- [ ] Backend: Implement Hours Report generation API.
+- [ ] Frontend: Develop the Hours Report UI (filtering and detailed display).
 
 ## Phase 6: Testing and Deployment Preparation (Pending)
 
-- [ ] **Unit & Integration Tests:** Write comprehensive unit and integration tests for both backend (PHPUnit) and frontend (Vitest/Jest) components.
+- [ ] **Unit & Integration Tests:** Write comprehensive unit and integration tests for both backend (PHPUnit) and frontend (Vitest/Jest) components. (Ongoing throughout development)
 - [ ] **E2E Tests:** Set up Cypress/Playwright and write End-to-End tests for critical user flows.
 - [ ] **Security Review:** Conduct a thorough security review.
 - [ ] **Deployment Configuration:** Finalize Render deployment configurations for both backend and frontend.
+- [ ] **CI/CD Setup:** Set up CI/CD pipelines on Render to automate testing and deployment.
