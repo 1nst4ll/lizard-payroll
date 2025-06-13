@@ -4,7 +4,7 @@
 
 This document tracks the completed and remaining tasks for the Payroll Web Application development, based on the initial development plan and the updated technology stack.
 
-## Last Updated: 2025-06-13 01:12 PM (America/New_York)
+## Last Updated: 2025-06-13 01:26 PM (America/New_York)
 
 ## Phase 1: Project Setup and Backend Foundation (Completed)
 
@@ -94,3 +94,52 @@ This document tracks the completed and remaining tasks for the Payroll Web Appli
 - [ ] **Security Review:** Conduct a thorough security review.
 - [ ] **Deployment Configuration:** Finalize Render deployment configurations for both backend and frontend.
 - [ ] **CI/CD Setup:** Set up CI/CD pipelines on Render to automate testing and deployment.
+
+## Phase 7: Core Functionality Refinement & Enhancements (Pending)
+
+*   **Punch Management Logic Refinement:**
+    *   [ ] **Implement File Import:**
+        *   [ ] Backend: Integrate a library (e.g., Laravel Excel) to parse uploaded Excel/CSV files.
+        *   [ ] Backend: Implement data validation for imported punch records.
+        *   [ ] Backend: Implement batch creation of `Punch` records.
+        *   [ ] Frontend: Develop UI for file upload and progress feedback.
+    *   [ ] **Implement Autofix Logic:**
+        *   [ ] Backend: Develop algorithms to detect missing IN/OUT punches and anomalies.
+        *   [ ] Backend: Implement logic to suggest and apply fixes.
+        *   [ ] Frontend: Develop UI to display suggested fixes and allow user approval (bulk/individual).
+    *   [ ] **Enhance Manual Punch Editing UI:**
+        *   [ ] Frontend: Implement inline editing capabilities for punch records in the list view.
+
+*   **Reporting Logic Refinement:**
+    *   [ ] **Refine Hours Report Calculations:**
+        *   [ ] Backend: Implement precise calculations for gross, break, net, overtime, and public holiday hours based on `project-overview.md` and `payroll-settings.md`.
+        *   [ ] Backend: Account for different payroll periods and specific rules.
+    *   [ ] **Implement Report Export:**
+        *   [ ] Backend: Implement CSV generation for hours reports.
+        *   [ ] Backend: Implement PDF generation for hours reports.
+        *   [ ] Frontend: Integrate export buttons with backend endpoints for file download.
+
+*   **Settings Management UI Development:**
+    *   [ ] **Develop Business Settings UI:**
+        *   [ ] Frontend: Create Vue components for displaying and editing Business Settings.
+        *   [ ] Frontend: Integrate API calls (`/api/settings/business` GET/PUT).
+    *   [ ] **Develop Payroll Settings UI:**
+        *   [ ] Frontend: Create Vue components for displaying and editing Payroll Settings.
+        *   [ ] Frontend: Integrate API calls (`/api/settings/payroll` GET/PUT).
+
+*   **Role-Based Access Control (RBAC) Refinement:**
+    *   [ ] **Implement Granular Backend RBAC:**
+        *   [ ] Backend: Adjust queries (e.g., in `EmployeeController`, `ReportController`) to filter data based on user roles and permissions (e.g., managers only see their department's employees).
+    *   [ ] **Implement Dynamic Frontend RBAC:**
+        *   [ ] Frontend: Dynamically show/hide UI elements (buttons, links, sections) based on the authenticated user's roles and permissions.
+
+*   **Google OAuth Integration:**
+    *   [ ] **Configure Laravel Socialite:**
+        *   [ ] Backend: Update `config/services.php` and `.env` with Google OAuth credentials.
+        *   [ ] Backend: Implement callback handling.
+    *   [ ] **Frontend: Integrate Google Login Button:**
+        *   [ ] Frontend: Add a Google login option to the authentication UI.
+
+*   **Navigation Integration:**
+    *   [ ] **Frontend: Update Main Navigation:**
+        *   [ ] Integrate links to Public Holidays, Departments, Job Roles, Employees, Punches, and Reports into the main application navigation (e.g., sidebar or top menu).
