@@ -4,7 +4,7 @@
 
 This document tracks the completed and remaining tasks for the Payroll Web Application development, based on the initial development plan and the updated technology stack.
 
-## Last Updated: 2025-06-13 11:32 AM (America/New_York)
+## Last Updated: 2025-06-13 01:12 PM (America/New_York)
 
 ## Phase 1: Project Setup and Backend Foundation (Completed)
 
@@ -26,66 +26,66 @@ This document tracks the completed and remaining tasks for the Payroll Web Appli
     - [x] Implemented Controllers and Routes for Payroll Settings (`/settings/payroll` GET/PUT).
     - [x] Implemented authorization using Spatie Permission for these endpoints.
 
-## Phase 2: Frontend Setup and Core UI (Pending)
+## Phase 2: Frontend Setup and Core UI (Completed)
 
-- [ ] **Frontend Project Initialization:**
-    - [ ] Vue.js frontend is integrated with the Laravel backend via Jetstream (Inertia Stack).
-    - [ ] Ran `npm install` in the backend directory to install frontend dependencies.
-    - [ ] Ran `npm run build` to compile initial frontend assets.
-- [ ] **UI/UX Implementation:**
-    - [ ] Tailwind CSS is configured by Jetstream.
+- [x] **Frontend Project Initialization:**
+    - [x] Vue.js frontend is integrated with the Laravel backend via Jetstream (Inertia Stack).
+    - [x] Ran `npm install` in the backend directory to install frontend dependencies.
+    - [x] Ran `npm run build` to compile initial frontend assets.
+- [x] **UI/UX Implementation:**
+    - [x] Tailwind CSS is configured by Jetstream.
     - [ ] Prepared for `shadcn/ui` integration (manual setup of components required as `shadcn/ui` for Vue is in development).
-    - [ ] Verified basic frontend compilation and serving via Vite (`npm run dev`).
-- [ ] **Authentication UI:**
-    - [ ] Jetstream provides pre-built login, registration, and dashboard views using Vue.js and Inertia.
+    - [x] Verified basic frontend compilation and serving via Vite (`npm run dev`).
+- [x] **Authentication UI:**
+    - [x] Jetstream provides pre-built login, registration, and dashboard views using Vue.js and Inertia.
 
-## Phase 3: Feature Development - Public Holidays, Departments, Job Roles (Pending)
+## Phase 3: Feature Development - Public Holidays, Departments, Job Roles (Completed)
 
 ### Public Holidays
-- [ ] Backend: Define `PublicHoliday` Eloquent Model and Migrations.
-- [ ] Backend: Implement API Endpoints (CRUD).
-- [ ] Backend: Implement Authorization (Spatie Permission).
-- [ ] Frontend: Create Vue Components for List View.
-- [ ] Frontend: Create Vue Components for Add/Edit Form (Modal/Page).
-- [ ] Frontend: Integrate API calls for data fetching and submission.
-- [ ] Frontend: Implement UI for authorization (e.g., hide/show elements based on user role).
+- [x] Backend: Define `PublicHoliday` Eloquent Model and Migrations.
+- [x] Backend: Implement API Endpoints (CRUD).
+- [x] Backend: Implement Authorization (Spatie Permission).
+- [x] Frontend: Create Vue Components for List View.
+- [x] Frontend: Create Vue Components for Add/Edit Form (Modal/Page).
+- [x] Frontend: Integrate API calls for data fetching and submission.
+- [x] Frontend: Implement UI for authorization (e.g., hide/show elements based on user role).
 
 ### Departments
-- [ ] Backend: Define `Department` Eloquent Model and Migrations.
-- [ ] Backend: Implement API Endpoints (CRUD).
-- [ ] Backend: Implement Authorization (Spatie Permission).
-- [ ] Frontend: Create Vue Components for List View.
-- [ ] Frontend: Create Vue Components for Add/Edit Form (Modal/Page).
-- [ ] Frontend: Integrate API calls for data fetching and submission.
-- [ ] Frontend: Implement UI for authorization (e.g., hide/show elements based on user role).
+- [x] Backend: Define `Department` Eloquent Model and Migrations.
+- [x] Backend: Implement API Endpoints (CRUD).
+- [x] Backend: Implement Authorization (Spatie Permission).
+- [x] Frontend: Create Vue Components for List View.
+- [x] Frontend: Create Vue Components for Add/Edit Form (Modal/Page).
+- [x] Frontend: Integrate API calls for data fetching and submission.
+- [x] Frontend: Implement UI for authorization (e.g., hide/show elements based on user role).
 
 ### Job Roles
-- [ ] Backend: Define `JobRole` Eloquent Model and Migrations.
-- [ ] Backend: Implement API Endpoints (CRUD).
-- [ ] Backend: Implement Authorization (Spatie Permission).
-- [ ] Frontend: Create Vue Components for List View.
-- [ ] Frontend: Create Vue Components for Add/Edit Form (Modal/Page).
-- [ ] Frontend: Integrate API calls for data fetching and submission.
-- [ ] Frontend: Implement UI for authorization (e.g., hide/show elements based on user role).
+- [x] Backend: Define `JobRole` Eloquent Model and Migrations.
+- [x] Backend: Implement API Endpoints (CRUD).
+- [x] Backend: Implement Authorization (Spatie Permission).
+- [x] Frontend: Create Vue Components for List View.
+- [x] Frontend: Create Vue Components for Add/Edit Form (Modal/Page).
+- [x] Frontend: Integrate API calls for data fetching and submission.
+- [x] Frontend: Implement UI for authorization (e.g., hide/show elements based on user role).
 
-## Phase 4: Employee Management (Pending)
+## Phase 4: Employee Management (Completed)
 
-- [ ] Backend: Implement full CRUD APIs for Employees and Employee Documents.
-- [ ] Frontend: Develop the Employee List View with search and filter capabilities.
-- [ ] Frontend: Develop the Employee Profile View with tabbed sections and conditional fields for documents.
+- [x] Backend: Implement full CRUD APIs for Employees and Employee Documents.
+- [x] Frontend: Develop the Employee List View with search and filter capabilities.
+- [x] Frontend: Develop the Employee Profile View with tabbed sections and conditional fields for documents.
 
-## Phase 5: Punch Management & Reporting (Pending)
+## Phase 5: Punch Management & Reporting (Completed)
 
 ### Punch Management
-- [ ] Backend: Implement API for importing punches (file upload/external DB).
-- [ ] Backend: Implement API for retrieving punches.
-- [ ] Backend: Implement API for manual punch edits.
-- [ ] Backend: Implement API for autofix functionality.
-- [ ] Frontend: Develop the Punch Management UI (file import, data display, manual editing, autofix).
+- [x] Backend: Implement API for importing punches (file upload/external DB).
+- [x] Backend: Implement API for retrieving punches.
+- [x] Backend: Implement API for manual punch edits.
+- [x] Backend: Implement API for autofix functionality.
+- [x] Frontend: Develop the Punch Management UI (file import, data display, manual editing, autofix).
 
 ### Reporting
-- [ ] Backend: Implement Hours Report generation API.
-- [ ] Frontend: Develop the Hours Report UI (filtering and detailed display).
+- [x] Backend: Implement Hours Report generation API.
+- [x] Frontend: Develop the Hours Report UI (filtering and detailed display).
 
 ## Phase 6: Testing and Deployment Preparation (Pending)
 
