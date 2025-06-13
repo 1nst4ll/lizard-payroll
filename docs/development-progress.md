@@ -4,7 +4,7 @@
 
 This document tracks the completed and remaining tasks for the Payroll Web Application development, based on the initial development plan and the updated technology stack.
 
-## Last Updated: 2025-06-13 01:26 PM (America/New_York)
+## Last Updated: 2025-06-13 02:11 PM (America/New_York)
 
 ## Phase 1: Project Setup and Backend Foundation (Completed)
 
@@ -87,16 +87,35 @@ This document tracks the completed and remaining tasks for the Payroll Web Appli
 - [x] Backend: Implement Hours Report generation API.
 - [x] Frontend: Develop the Hours Report UI (filtering and detailed display).
 
-## Phase 6: Testing and Deployment Preparation (Pending)
+## Phase 5.5: Core UI/UX Integration (Pending)
 
-- [ ] **Unit & Integration Tests:** Write comprehensive unit and integration tests for both backend (PHPUnit) and frontend (Vitest/Jest) components. (Ongoing throughout development)
-- [ ] **E2E Tests:** Set up Cypress/Playwright and write End-to-End tests for critical user flows.
-- [ ] **Security Review:** Conduct a thorough security review.
-- [ ] **Deployment Configuration:** Finalize Render deployment configurations for both backend and frontend.
-- [ ] **CI/CD Setup:** Set up CI/CD pipelines on Render to automate testing and deployment.
+*   **Main Landing Page Customization:**
+    *   [ ] Frontend: Design and implement a custom landing page for the application.
+    *   [ ] Frontend: Update the root route (`/`) to render the custom landing page.
+*   **Dashboard Customization:**
+    *   [ ] Frontend: Design and implement a custom dashboard relevant to payroll operations (e.g., quick stats, action items).
+    *   [ ] Frontend: Update the `/dashboard` route to render the custom dashboard.
+*   **Navigation Integration:**
+    *   [ ] Frontend: Integrate links to Public Holidays, Departments, Job Roles, Employees, Punches, and Reports into the main application navigation (e.g., sidebar or top menu).
+    *   [ ] Frontend: Ensure role-based visibility for navigation items.
 
-## Phase 7: Core Functionality Refinement & Enhancements (Pending)
+## Phase 6: Critical UI/UX & Core Logic Refinement (Pending)
 
+*   **Settings Management UI Development:**
+    *   [ ] **Develop Business Settings UI:**
+        *   [ ] Frontend: Create Vue components for displaying and editing Business Settings.
+        *   [ ] Frontend: Integrate API calls (`/api/settings/business` GET/PUT).
+    *   [ ] **Develop Payroll Settings UI:**
+        *   [ ] Frontend: Create Vue components for displaying and editing Payroll Settings.
+        *   [ ] Frontend: Integrate API calls (`/api/settings/payroll` GET/PUT).
+*   **Reporting Logic Refinement:**
+    *   [ ] **Refine Hours Report Calculations:**
+        *   [ ] Backend: Implement precise calculations for gross, break, net, overtime, and public holiday hours based on `project-overview.md` and `payroll-settings.md`.
+        *   [ ] Backend: Account for different payroll periods and specific rules.
+    *   [ ] **Implement Report Export:**
+        *   [ ] Backend: Implement CSV generation for hours reports.
+        *   [ ] Backend: Implement PDF generation for hours reports.
+        *   [ ] Frontend: Integrate export buttons with backend endpoints for file download.
 *   **Punch Management Logic Refinement:**
     *   [ ] **Implement File Import:**
         *   [ ] Backend: Integrate a library (e.g., Laravel Excel) to parse uploaded Excel/CSV files.
@@ -110,29 +129,13 @@ This document tracks the completed and remaining tasks for the Payroll Web Appli
     *   [ ] **Enhance Manual Punch Editing UI:**
         *   [ ] Frontend: Implement inline editing capabilities for punch records in the list view.
 
-*   **Reporting Logic Refinement:**
-    *   [ ] **Refine Hours Report Calculations:**
-        *   [ ] Backend: Implement precise calculations for gross, break, net, overtime, and public holiday hours based on `project-overview.md` and `payroll-settings.md`.
-        *   [ ] Backend: Account for different payroll periods and specific rules.
-    *   [ ] **Implement Report Export:**
-        *   [ ] Backend: Implement CSV generation for hours reports.
-        *   [ ] Backend: Implement PDF generation for hours reports.
-        *   [ ] Frontend: Integrate export buttons with backend endpoints for file download.
-
-*   **Settings Management UI Development:**
-    *   [ ] **Develop Business Settings UI:**
-        *   [ ] Frontend: Create Vue components for displaying and editing Business Settings.
-        *   [ ] Frontend: Integrate API calls (`/api/settings/business` GET/PUT).
-    *   [ ] **Develop Payroll Settings UI:**
-        *   [ ] Frontend: Create Vue components for displaying and editing Payroll Settings.
-        *   [ ] Frontend: Integrate API calls (`/api/settings/payroll` GET/PUT).
+## Phase 7: Authentication & Authorization Deep Dive (Pending)
 
 *   **Role-Based Access Control (RBAC) Refinement:**
     *   [ ] **Implement Granular Backend RBAC:**
         *   [ ] Backend: Adjust queries (e.g., in `EmployeeController`, `ReportController`) to filter data based on user roles and permissions (e.g., managers only see their department's employees).
     *   [ ] **Implement Dynamic Frontend RBAC:**
         *   [ ] Frontend: Dynamically show/hide UI elements (buttons, links, sections) based on the authenticated user's roles and permissions.
-
 *   **Google OAuth Integration:**
     *   [ ] **Configure Laravel Socialite:**
         *   [ ] Backend: Update `config/services.php` and `.env` with Google OAuth credentials.
@@ -140,6 +143,27 @@ This document tracks the completed and remaining tasks for the Payroll Web Appli
     *   [ ] **Frontend: Integrate Google Login Button:**
         *   [ ] Frontend: Add a Google login option to the authentication UI.
 
-*   **Navigation Integration:**
-    *   [ ] **Frontend: Update Main Navigation:**
-        *   [ ] Integrate links to Public Holidays, Departments, Job Roles, Employees, Punches, and Reports into the main application navigation (e.g., sidebar or top menu).
+## Phase 8: Advanced Features & Polish (Pending)
+
+*   **Pay Stub Generation:**
+    *   [ ] Backend: Implement logic to compile pay data for pay stubs.
+    *   [ ] Frontend: Develop UI for viewing/generating pay stubs (e.g., PDF).
+*   **Tax Forms Generation:**
+    *   [ ] Backend: Implement logic for generating necessary tax forms.
+*   **Payment Processing Integration:**
+    *   [ ] Backend: Research and integrate with banking APIs for actual bank transfers.
+*   **Comprehensive Testing:**
+    *   [ ] **Unit & Integration Tests:** Write comprehensive unit and integration tests for both backend (PHPUnit) and frontend (Vitest/Jest) components. (Ongoing throughout development)
+    *   [ ] **E2E Tests:** Set up Cypress/Playwright and write End-to-End tests for critical user flows.
+*   **Security Review:**
+    *   [ ] Conduct a thorough security review.
+*   **Deployment Configuration:**
+    *   [ ] Finalize Render deployment configurations for both backend and frontend.
+*   [ ] **CI/CD Setup:**
+    *   [ ] Set up CI/CD pipelines on Render to automate testing and deployment.
+*   **UI/UX Polish and `shadcn/ui` Integration:**
+    *   [ ] Fully integrate `shadcn/ui` components as needed for all new features to ensure a consistent and polished user experience.
+*   **Error Handling and User Feedback:**
+    *   [ ] Implement more user-friendly error messages and feedback mechanisms across the application.
+*   **User Management UI:**
+    *   [ ] Develop a comprehensive UI for administrators to manage users, roles, and permissions.
