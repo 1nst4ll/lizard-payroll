@@ -15,6 +15,9 @@ class PublicHolidayController extends Controller
      */
     public function index(Request $request)
     {
+        if (! Auth::check()) {
+            return response()->json(['message' => 'Unauthenticated.'], 401);
+        }
         Auth::user()->can('view public holidays');
 
         $query = PublicHoliday::query();

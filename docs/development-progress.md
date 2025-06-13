@@ -167,3 +167,22 @@ This document tracks the completed and remaining tasks for the Payroll Web Appli
     *   [ ] Implement more user-friendly error messages and feedback mechanisms across the application.
 *   **User Management UI:**
     *   [ ] Develop a comprehensive UI for administrators to manage users, roles, and permissions.
+
+## Troubleshooting and Fixes (Latest Updates)
+
+This section details the issues encountered during development and their resolutions.
+
+### Issue: `Link` component not resolved in `CustomDashboard.vue`
+- **Resolution:** Imported `Link` component from `@inertiajs/vue3` in `backend/resources/js/Pages/CustomDashboard.vue`.
+
+### Issue: 401 Unauthorized and 500 Internal Server Errors for `/api/holidays`
+- **Symptoms:** Initial 401 Unauthorized error, followed by 500 Internal Server Error, then persistent 401 Unauthorized.
+- **Root Causes & Resolutions:**
+    - **Missing `withCredentials` in Axios:** Added `window.axios.defaults.withCredentials = true;` to `backend/resources/js/bootstrap.js` to ensure cookies are sent with cross-origin requests.
+    - **Missing CSRF Token Meta Tag:** Added `<meta name="csrf-token" content="{{ csrf_token() }}">` to `backend/resources/views/app.blade.php` to enable proper CSRF protection.
+    - **`APP_URL` Mismatch:** Updated `APP_URL` in `backend/.env` to `http://127.0.0.1:8000` to match the application's access URL, resolving cookie domain mismatches.
+    - **`SESSION_SECURE_COOKIE` for Local Development:** Set `SESSION_SECURE_COOKIE=false` in `backend/.env` to allow session cookies to be sent over HTTP during local development.
+    - **Database Connection Failure (`fe_sendauth: no password supplied`):** Corrected the `DB_PASSWORD` in `backend/.env` to `123456` to establish a successful PostgreSQL connection.
+    - **Vite Manifest Errors:** Resolved frontend build issues (`Unable to locate file in Vite manifest`) by running `npm install` and `npm run build` in the `backend/` directory.
+    - **`can()` method on null object:** Added `use Spatie\Permission\Traits\HasRoles;` to `backend/app/Models/User.php` to provide the `can()` method, resolving "Undefined method 'can'" errors in `PublicHolidayController`.
+    - **Missing Middleware in `app.php`:** Populated the `withMiddleware` closure in `backend/bootstrap/app.php` with the necessary web and API middleware groups, including `\Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class`, which is crucial for Sanctum's session-based API authentication.
