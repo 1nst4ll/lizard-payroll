@@ -49,8 +49,14 @@ class PublicHolidayController extends Controller
             ], 400);
         }
 
-        // Associate with the first business setting found, or create one
-        $businessSetting = BusinessSetting::firstOrCreate([]);
+        // Associate with the first business setting found, or create one with default values
+        $businessSetting = BusinessSetting::firstOrCreate(
+            [], // Attributes to search for (empty to always create if none exist)
+            [
+                'business_name' => 'Default Business', // Provide a default value
+                'time_zone' => 'UTC', // Provide a default value
+            ]
+        );
         $validatedData['business_id'] = $businessSetting->id;
 
         $holiday = PublicHoliday::create($validatedData);

@@ -16,6 +16,9 @@ class DepartmentController extends Controller
      */
     public function index()
     {
+        if (! Auth::check()) {
+            return response()->json(['message' => 'Unauthenticated.'], 401);
+        }
         Auth::user()->can('view departments');
 
         return response()->json(Department::all());
@@ -26,6 +29,9 @@ class DepartmentController extends Controller
      */
     public function store(Request $request)
     {
+        if (! Auth::check()) {
+            return response()->json(['message' => 'Unauthenticated.'], 401);
+        }
         Auth::user()->can('create departments');
 
         try {
@@ -41,8 +47,14 @@ class DepartmentController extends Controller
             ], 400);
         }
 
-        // Associate with the first business setting found, or create one
-        $businessSetting = BusinessSetting::firstOrCreate([]);
+        // Associate with the first business setting found, or create one with default values
+        $businessSetting = BusinessSetting::firstOrCreate(
+            [], // Attributes to search for (empty to always create if none exist)
+            [
+                'business_name' => 'Default Business', // Provide a default value
+                'time_zone' => 'UTC', // Provide a default value
+            ]
+        );
         $validatedData['business_id'] = $businessSetting->id;
 
         $department = Department::create($validatedData);
@@ -55,6 +67,9 @@ class DepartmentController extends Controller
      */
     public function show(string $id)
     {
+        if (! Auth::check()) {
+            return response()->json(['message' => 'Unauthenticated.'], 401);
+        }
         Auth::user()->can('view departments');
 
         $department = Department::findOrFail($id);
@@ -66,6 +81,9 @@ class DepartmentController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        if (! Auth::check()) {
+            return response()->json(['message' => 'Unauthenticated.'], 401);
+        }
         Auth::user()->can('edit departments');
 
         $department = Department::findOrFail($id);
@@ -93,6 +111,9 @@ class DepartmentController extends Controller
      */
     public function destroy(string $id)
     {
+        if (! Auth::check()) {
+            return response()->json(['message' => 'Unauthenticated.'], 401);
+        }
         Auth::user()->can('delete departments');
 
         $department = Department::findOrFail($id);
