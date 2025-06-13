@@ -51,6 +51,24 @@ const logout = () => {
                                 <NavLink :href="route('dashboard')" :active="route().current('dashboard')">
                                     Dashboard
                                 </NavLink>
+                                <NavLink :href="route('holidays.index')" :active="route().current('holidays.index')">
+                                    Public Holidays
+                                </NavLink>
+                                <NavLink :href="route('departments.index')" :active="route().current('departments.index')">
+                                    Departments
+                                </NavLink>
+                                <NavLink :href="route('job-roles.index')" :active="route().current('job-roles.index')">
+                                    Job Roles
+                                </NavLink>
+                                <NavLink :href="route('employees.index')" :active="route().current('employees.index')">
+                                    Employees
+                                </NavLink>
+                                <NavLink :href="route('punches.index')" :active="route().current('punches.index')">
+                                    Punches
+                                </NavLink>
+                                <NavLink :href="route('reports.hours')" :active="route().current('reports.hours')">
+                                    Reports
+                                </NavLink>
                             </div>
                         </div>
 
@@ -193,6 +211,24 @@ const logout = () => {
                     <div class="pt-2 pb-3 space-y-1">
                         <ResponsiveNavLink :href="route('dashboard')" :active="route().current('dashboard')">
                             Dashboard
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink :href="route('holidays.index')" :active="route().current('holidays.index')">
+                            Public Holidays
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink :href="route('departments.index')" :active="route().current('departments.index')">
+                            Departments
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink :href="route('job-roles.index')" :active="route().current('job-roles.index')">
+                            Job Roles
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink :href="route('employees.index')" :active="route().current('employees.index')">
+                            Employees
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink :href="route('punches.index')" :active="route().current('punches.index')">
+                            Punches
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink :href="route('reports.hours')" :active="route().current('reports.hours')">
+                            Reports
                         </ResponsiveNavLink>
                     </div>
 
