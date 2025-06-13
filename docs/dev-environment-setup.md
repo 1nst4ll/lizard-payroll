@@ -38,8 +38,8 @@ Before you begin, ensure you have the following installed on your system:
 First, clone the project repository to your local machine.
 
 ```bash
-git clone [repository_url]
-cd payroll-web-app # Or whatever your project's root directory is named
+git clone https://github.com/1nst4ll/lizard-payroll
+cd lizard-payroll
 ```
 
 ## 2. Backend Setup (PHP with Laravel)
@@ -92,7 +92,7 @@ DB_CONNECTION=pgsql
 DB_HOST=127.0.0.1
 DB_PORT=5432
 DB_DATABASE=payroll_db
-DB_USERNAME=your_username
+DB_USERNAME=payroll_dev
 DB_PASSWORD=your_password
 
 BROADCAST_DRIVER=log
@@ -142,7 +142,7 @@ Ensure your PostgreSQL server is running.
 
 1.  **Create Database:** If you haven't already, create the database specified in your `.env` file (e.g., `payroll_db`). You can do this via `pgAdmin4` or the `psql` command line:
     ```bash
-    psql -U your_username -c "CREATE DATABASE payroll_db;"
+    psql -U payroll_dev -c "CREATE DATABASE payroll_db;"
     ```
 2.  **Run Migrations:** Once the database is created, run the database migrations to set up the schema.
 

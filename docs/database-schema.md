@@ -2,7 +2,7 @@
 
 *   **Last Updated:** 2025-06-13 02:00 AM (America/New_York)
 
-This document outlines the proposed database schema for the Payroll Web Application. It details the tables, their columns, data types, relationships, and key constraints. The schema is designed to support the features outlined in [`docs/project-overview.md`](./project-overview.md) and will be implemented using PostgreSQL.
+This document outlines the proposed database schema for the Payroll Web Application. It details the tables, their columns, data types, relationships, and key constraints. The schema is designed to support the features outlined in [`docs/project-overview.md`](./project-overview.md) and will be implemented using PostgreSQL. The default database name will be `payroll_db` and the default user will be `payroll_dev`.
 
 For a high-level overview of the project features, refer to [`docs/project-overview.md`](./project-overview.md).
 For UI/UX design guidelines, refer to [`docs/ui_ux_guideline.md`](./ui_ux_guideline.md).

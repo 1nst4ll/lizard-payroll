@@ -26,7 +26,7 @@ Render offers managed PostgreSQL databases.
 1.  **Create a New PostgreSQL Database:**
     *   Go to your Render Dashboard.
     *   Click "New" -> "PostgreSQL".
-    *   Choose a name for your database (e.g., `payroll-db`), select a region, and a plan.
+    *   Choose a name for your database (e.g., `payroll_db`), select a region, and a plan.
     *   Click "Create Database".
 2.  **Note Database Credentials:** Once created, Render will provide you with the `External Database URL`, `Internal Database URL`, `Host`, `Port`, `User`, `Password`, and `Database` name. You will need the `External Database URL` for your backend service.
 
@@ -55,8 +55,8 @@ The Laravel backend will be deployed as a Web Service on Render.
         *   `DB_CONNECTION`: `pgsql`
         *   `DB_HOST`: Internal Database Host from your Render PostgreSQL database.
         *   `DB_PORT`: Internal Database Port from your Render PostgreSQL database.
-        *   `DB_DATABASE`: Database name from your Render PostgreSQL database.
-        *   `DB_USERNAME`: User from your Render PostgreSQL database.
+        *   `DB_DATABASE`: `payroll_db`
+        *   `DB_USERNAME`: `payroll_dev`
         *   `DB_PASSWORD`: Password from your Render PostgreSQL database.
         *   `APP_ENV`: `production`
         *   `APP_DEBUG`: `false`
