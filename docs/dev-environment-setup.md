@@ -1,6 +1,6 @@
 # Payroll Web App: Development Environment Setup Guide
 
-*   **Last Updated:** 2025-06-12 10:03 PM (America/New_York)
+*   **Last Updated:** 2025-06-13 12:05 PM (America/New_York)
 
 This guide provides step-by-step instructions for setting up your local development environment for the Payroll Web Application. It covers prerequisites, installation of necessary tools, and how to run the frontend and backend components.
 
@@ -71,7 +71,7 @@ php artisan vendor:publish --provider="Spatie\Permission\PermissionServiceProvid
 php artisan migrate
 php artisan db:seed --class="PermissionSeeder" # You'll need to create this seeder
 ```
-Note: For Laravel Socialite, you'll need to configure your `config/services.php` and `.env` with Google OAuth credentials. For Spatie Permission, you'll need to set up roles and permissions in your database seeders or migrations.
+Note: For Laravel Socialite, you'll need to configure your `config/services.php` and `.env` with Google OAuth credentials. This step is pending and will be addressed in a future phase. For Spatie Permission, you'll need to set up roles and permissions in your database seeders or migrations.
 
 ### 2.3 Environment Configuration
 
