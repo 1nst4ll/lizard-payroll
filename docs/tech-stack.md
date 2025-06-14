@@ -49,4 +49,4 @@ For security guidelines, refer to [`docs/security-guidelines.md`](./security-gui
     *   **PHPUnit (for Laravel):** A widely used testing framework for PHP applications, integrated with Laravel for unit and feature testing.
     *   **Vitest / Jest (for Vue.js):** For comprehensive unit and component testing in the frontend.
 *   **UI Library:**
-    *   **shadcn/ui:** A collection of reusable components built with Radix UI and Tailwind CSS. This choice ensures a modern, accessible, and highly customizable user interface, maintaining consistency with the project's UI/UX guidelines.
+*   **Custom UI Components:** We will develop custom reusable UI components using Vue.js and Tailwind CSS, ensuring a modern, accessible, and highly customizable user interface that maintains consistency with the project's UI/UX guidelines.

@@ -16,35 +16,17 @@ For details on the technology stack, refer to [`docs/tech-stack.md`](./tech-stac
   * **Role-Based Access:** The UI will adapt based on the user's role (e.g., Administrator, Manager). An Admin sees everything, while a Manager might only see their department's employees and reports.
   * **Consistency:** A consistent design language (buttons, forms, modals, tables) will be used throughout the app, making it predictable and easy to learn.
   * **Responsive & Mobile-First:** The design will prioritize a mobile-first approach, ensuring optimal user experience and functionality across various screen sizes, from mobile devices to large desktops. The UI will adapt fluidly to different viewports.
-  * **Native App Feel:** Leveraging `shadcn/ui` (with Vue.js implementation) and careful design, the application will aim for a clean, intuitive interface that feels familiar and performant, akin to a native application.
-
-**Color Palette:**
-
-  * **Primary:** `#4A90E2` (A professional and calming blue)
-  * **Secondary/Accent:** `#50E3C2` (A vibrant teal for calls-to-action, success states)
-  * **Neutral:** `#F4F5F7` (Light gray for backgrounds)
-  * **Text:** `#333333` (Dark gray for readability)
-  * **Error/Alert:** `#D0021B` (A clear, attention-grabbing red)
-
-**Typography:**
-
-  * **Font:** Inter or Lato - modern, highly readable sans-serif fonts suitable for UI.
-    *   **Headings (H1):** `font-size: 2.5rem; font-weight: 700;` (Bold)
-    *   **Headings (H2):** `font-size: 2rem; font-weight: 600;` (Semi-bold)
-    *   **Headings (H3):** `font-size: 1.75rem; font-weight: 600;` (Semi-bold)
-    *   **Body Text:** `font-size: 1rem; font-weight: 400;` (Regular)
-    *   **Small Text:** `font-size: 0.875rem; font-weight: 400;` (Regular)
+  * **Native App Feel:** Through careful design and implementation, the application will aim for a clean, intuitive interface that feels familiar and performant, akin to a native application. All styling will be managed through Tailwind CSS configuration and utility classes.
 
 ### **Component Library & Styling:**
 
-*   **shadcn/ui:** The primary UI component library. While originally built for React, efforts are underway to provide Vue.js compatibility. Components will be integrated and customized to match the defined design system, potentially requiring manual adaptation for Vue.js.
-*   **Tailwind CSS:** Used for utility-first styling, enabling rapid and consistent application of design tokens and responsive layouts.
+*   **Tailwind CSS:** Used for utility-first styling. The project will primarily leverage the default styling provided by Laravel Jetstream, ensuring consistency and efficient development. Any additional UI components will be built using Tailwind CSS utility classes to maintain a cohesive design.
 
 ### **Accessibility:**
 
 *   **Semantic HTML:** Use appropriate HTML5 elements to ensure proper structure and meaning.
 *   **Keyboard Navigation:** All interactive elements will be fully navigable and operable via keyboard.
-*   **ARIA Attributes:** Implement ARIA (Accessible Rich Internet Applications) attributes where necessary to enhance semantic meaning for assistive technologies.
+*   **ARIA Attributes:** Implement ARIA (Accessible Accessible Rich Internet Applications) attributes where necessary to enhance semantic meaning for assistive technologies.
 *   **Color Contrast:** Ensure sufficient color contrast ratios for all text and interactive elements to meet WCAG 2.1 AA standards.
 *   **Focus Management:** Clearly indicate focus states for interactive elements to aid keyboard and assistive technology users.
 *   **Alt Text:** Provide descriptive `alt` text for all meaningful images.
@@ -145,37 +127,37 @@ Here are the low-fidelity wireframes for the core sections of the application.
 
 This UI/UX design provides a robust and user-centric foundation for the payroll web app, directly addressing all the specified features and ensuring that complex payroll tasks are made as simple and efficient as possible.
 
-### Recommended shadcn/ui Components
+### Recommended UI Components
 
-Based on the UI/UX Design Proposal, here's a mapping of required UI elements to suitable `shadcn/ui` components to achieve a responsive, mobile-first design with a native app feel:
+Based on the UI/UX Design Proposal, here's a mapping of required UI elements to suitable custom components to achieve a responsive, mobile-first design with a native app feel:
 
 #### 1. General / Layout Components
 
 *   **Layout & Navigation:**
     *   **Sidebar:** For main navigation on larger screens.
-    *   **Sheet:** For mobile navigation (drawer from the side).
+    *   **Sheet (or similar mobile drawer):** For mobile navigation.
     *   **Navigation Menu:** For top-level navigation items.
     *   **Button:** For various actions and links.
     *   **Separator:** For visual separation in menus or content.
 *   **General Display:**
     *   **Card:** For "Quick Stats" and other content blocks on the Dashboard.
-    *   **Skeleton:** For loading states, especially for data-intensive sections like reports or employee lists.
+    *   **Skeleton (or loading indicators):** For loading states, especially for data-intensive sections like reports or employee lists.
     *   **Typography:** For consistent text styling (headings, body text).
 
 #### 2. Core Application Settings (I. Core Application Settings)
 
 *   **Input Fields:**
-    *   **Input:** For `Business Name`, `Business Phone`, `Business Email`, `Passport Number`, `NIB Number`, `NHIB Number`, `Employee ID`, `First Name`, `Last Name`, `Nickname`, `Phone Number`, `Email Address`, `Card / Number`, `1st Receipt / Number`, `2nd Receipt / Number`, `Rate`, `Uniform Size`.
+    *   **Input (Text, Number, Email, Phone, etc.):** For `Business Name`, `Business Phone`, `Business Email`, `Passport Number`, `NIB Number`, `NHIB Number`, `Employee ID`, `First Name`, `Last Name`, `Nickname`, `Phone Number`, `Email Address`, `Card / Number`, `1st Receipt / Number`, `2nd Receipt / Number`, `Rate`, `Uniform Size`.
     *   **Textarea:** For `Business Address`, `Address`.
 *   **Selection & Toggles:**
-    *   **Select:** For `Time Zone`, `Gender`, `Status`, `Payment Method`, `Department`, `Job Role`, `Report Type`, `Employee Selection`, `Pay Period Selection`.
+    *   **Select (Dropdown):** For `Time Zone`, `Gender`, `Status`, `Payment Method`, `Department`, `Job Role`, `Report Type`, `Employee Selection`, `Pay Period Selection`.
     *   **Radio Group:** For `Payroll Period`, `Week Run From`, `Type of Contract`.
     *   **Checkbox:** For `Deduct Breaks`, `Pay Overtime`, `Pay Public Holiday`, `Record Lieu days for salary employee for Public Holiday`, `Sick Days Paid Per Year`, `Deduct Days for Salary Paid Employee`, `Deduct NIB`, `Deduct NHIB`, `Add Tips`, `Add Service Charge`, `Contract Signed`, `NIB Deduction Override`, `NHIB Deduction Override`.
-    *   **Switch:** Can be an alternative for simple on/off settings like `Deduct Breaks` if a more modern toggle is preferred over a checkbox.
+    *   **Switch (Toggle):** Can be an alternative for simple on/off settings like `Deduct Breaks` if a more modern toggle is preferred over a checkbox.
 *   **Date Input:**
     *   **Date Picker:** For `DOB`, `Exp Date`, `1st Receipt Exp Date`, `2nd Receipt Exp Date`, `Starting Date`, `Pay Period Selection` (date range).
 *   **Numerical Input:**
-    *   **Input** (with type="number" or custom validation): For `Break Threshold`, `Break Duration`, `Overtime Threshold`, `Overtime Ratio`, `Public Holiday Ratio`, `Sick Days Paid Per Year`, `Expected Number of Days`, `% of Total Collected for Distribution`.
+    *   **Input (with type="number" or custom validation):** For `Break Threshold`, `Break Duration`, `Overtime Threshold`, `Overtime Ratio`, `Public Holiday Ratio`, `Sick Days Paid Per Year`, `Expected Number of Days`, `% of Total Collected for Distribution`.
 *   **Tabbed Navigation:**
     *   **Tabs:** For organizing settings pages (`Business`, `Payroll`, `Deductions & Contributions`, `Holidays`) and Employee Profile views (`Personal`, `Employment`, `Documents`, `Payroll`, `History`).
 
@@ -185,24 +167,24 @@ Based on the UI/UX Design Proposal, here's a mapping of required UI elements to 
     *   **Data Table:** For `Employee List View` (powerful table with sorting, filtering, pagination).
     *   **Pagination:** For `Employee List View` and `Punch Data Display`.
     *   **Input:** For `Search and Filter` in employee list.
-    *   **Dropdown Menu:** For "Action Menu" (`View/Edit`, `Deactivate`) on each employee row.
+    *   **Dropdown Menu (or Context Menu):** For "Action Menu" (`View/Edit`, `Deactivate`) on each employee row.
     *   **Avatar:** For employee photos (optional).
 
 #### 4. Punch Management (IV. Punch Management)
 
 *   **File Upload:**
-    *   **Dialog:** For the "Import Modal" (file upload pop-up).
-    *   **Input** (type="file"): For file selection within the import modal.
+    *   **Dialog (Modal):** For the "Import Modal" (file upload pop-up).
+    *   **Input (type="file"):** For file selection within the import modal.
 *   **Punch Data Display:**
     *   **Table:** For `Punch Data Display` (raw punches).
-    *   **Input** (inline editing): For `Date`, `Time`, `Status` within the punch table.
+    *   **Input (inline editing):** For `Date`, `Time`, `Status` within the punch table.
     *   **Button:** For "Autofix" and "Add Punch".
-    *   **Toast / Sonner:** For displaying messages like "Punch data imported successfully" or warnings.
+    *   **Toast:** For displaying messages like "Punch data imported successfully" or warnings.
 
 #### 5. Reporting (V. Reporting)
 
 *   **Filters:**
-    *   **Select:** For `Report Type`, `Pay Period`, `Employee`, `Department`.
+    *   **Select (Dropdown):** For `Report Type`, `Pay Period`, `Employee`, `Department`.
     *   **Date Picker:** For custom date ranges in `Pay Period`.
     *   **Button:** For `Generate Report`.
 *   **Report Display:**

@@ -1,4 +1,4 @@
-# Payroll Web App: Development Environment Setup Guide
+<![CDATA[# Payroll Web App: Development Environment Setup Guide
 
 *   **Last Updated:** 2025-06-13 12:05 PM (America/New_York)
 
@@ -150,7 +150,37 @@ Ensure your PostgreSQL server is running.
     php artisan migrate
     ```
 
-### 2.5 Run the Backend
+### 2.5 Post-Installation Configuration (CRITICAL)
+
+After the standard installation, two manual changes are required to enable communication between the frontend and the backend API. **Failure to perform these steps will result in `401 Unauthorized` errors.**
+
+1.  **Enable Credentials in Frontend Requests:**
+    -   Open `backend/resources/js/bootstrap.js`.
+    -   Add the line `window.axios.defaults.withCredentials = true;` to ensure `axios` sends session cookies.
+
+    ```javascript
+    // backend/resources/js/bootstrap.js
+    import axios from 'axios';
+    window.axios = axios;
+
+    window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+    window.axios.defaults.withCredentials = true; // <-- ADD THIS LINE
+    ```
+
+2.  **Enable Stateful API Middleware in Backend:**
+    -   Open `backend/bootstrap/app.php`.
+    -   Add the `EnsureFrontendRequestsAreStateful` middleware to the `api` group. This allows Laravel to handle session-based authentication for the SPA.
+
+    ```php
+    // backend/bootstrap/app.php
+    ->withMiddleware(function (Middleware $middleware) {
+        $middleware->api(append: [
+            \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class, // <-- ADD THIS
+        ]);
+    })
+    ```
+
+### 2.6 Run the Backend
 
 ```bash
 php artisan serve
@@ -223,3 +253,4 @@ Consider installing the following VS Code extensions for a better development ex
 *   **Missing Dependencies:** If you encounter errors about missing modules, try running `npm install` again in the respective project directory.
 
 By following these steps, you should have your local development environment for the Payroll Web Application up and running.
+]]>

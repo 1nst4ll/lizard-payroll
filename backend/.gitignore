@@ -23,3 +23,15 @@
 Homestead.json
 Homestead.yaml
 Thumbs.db
+npm-debug.log*
+yarn-error.log*
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+/.history/
+*.sublime-*
+*.swp
+*.swo
+*.bak
+*.tmp

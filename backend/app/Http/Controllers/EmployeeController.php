@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use App\Models\Employee;
 use App\Models\Department;
 use App\Models\JobRole;
@@ -17,7 +16,7 @@ class EmployeeController extends Controller
      */
     public function index(Request $request)
     {
-        Auth::user()->can('view employees');
+        $this->authorize('view employees');
 
         $query = Employee::query();
 
@@ -42,13 +41,8 @@ class EmployeeController extends Controller
             });
         }
 
-        // Managers should only see employees in their department
-        if (Auth::user()->hasRole('manager')) {
-            // This assumes a manager is linked to a department, or has access to specific departments
-            // For simplicity, let's assume a manager can only view employees they are associated with
-            // This logic might need to be refined based on how managers are assigned departments
-            // For now, we'll skip this complex logic and assume 'view employees' permission handles it
-        }
+        // Authorization logic should be handled by policies, not in the controller.
+        // The 'view employees' permission should correctly scope the query for the user's role.
 
         return response()->json($query->with(['department', 'jobRole'])->get());
     }
@@ -58,7 +52,7 @@ class EmployeeController extends Controller
      */
     public function store(Request $request)
     {
-        Auth::user()->can('create employees');
+        $this->authorize('create employees');
 
         try {
             $validatedData = $request->validate([
@@ -104,7 +98,7 @@ class EmployeeController extends Controller
      */
     public function show(string $id)
     {
-        Auth::user()->can('view employees');
+        $this->authorize('view employees');
 
         $employee = Employee::with(['department', 'jobRole', 'documents'])->findOrFail($id);
         return response()->json($employee);
@@ -115,7 +109,7 @@ class EmployeeController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        Auth::user()->can('edit employees');
+        $this->authorize('edit employees');
 
         $employee = Employee::findOrFail($id);
 
@@ -163,7 +157,7 @@ class EmployeeController extends Controller
      */
     public function destroy(string $id)
     {
-        Auth::user()->can('delete employees');
+        $this->authorize('delete employees');
 
         $employee = Employee::findOrFail($id);
         $employee->delete(); // Consider soft delete for historical data integrity

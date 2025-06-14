@@ -25,6 +25,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/settings/payroll', [PayrollSettingController::class, 'show']);
     Route::put('/settings/payroll', [PayrollSettingController::class, 'update']);
 
+    // Public Holidays
+    Route::apiResource('holidays', PublicHolidayController::class);
+
     // Departments
     Route::apiResource('departments', DepartmentController::class);
 
@@ -53,5 +56,4 @@ Route::middleware('auth:sanctum')->group(function () {
     // Reporting
     Route::get('/reports/hours', [ReportController::class, 'hours']);
     Route::get('/reports/hours/export', [ReportController::class, 'exportHours']);
-    Route::apiResource('holidays', PublicHolidayController::class);
 });

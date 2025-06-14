@@ -7,6 +7,7 @@ use App\Models\Department;
 use App\Models\BusinessSetting; // Assuming departments are tied to a business setting
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Validation\ValidationException;
 
 class DepartmentController extends Controller
@@ -16,9 +17,6 @@ class DepartmentController extends Controller
      */
     public function index()
     {
-        if (! Auth::check()) {
-            return response()->json(['message' => 'Unauthenticated.'], 401);
-        }
         Auth::user()->can('view departments');
 
         return response()->json(Department::all());
@@ -29,9 +27,6 @@ class DepartmentController extends Controller
      */
     public function store(Request $request)
     {
-        if (! Auth::check()) {
-            return response()->json(['message' => 'Unauthenticated.'], 401);
-        }
         Auth::user()->can('create departments');
 
         try {
@@ -47,19 +42,21 @@ class DepartmentController extends Controller
             ], 400);
         }
 
-        // Associate with the first business setting found, or create one with default values
-        $businessSetting = BusinessSetting::firstOrCreate(
-            [], // Attributes to search for (empty to always create if none exist)
-            [
-                'business_name' => 'Default Business', // Provide a default value
-                'time_zone' => 'UTC', // Provide a default value
-            ]
-        );
+        // Associate with the first business setting found, or throw an error
+        $businessSetting = BusinessSetting::first();
+
+        if (!$businessSetting) {
+            // Throw a ValidationException to integrate with Inertia's form error handling.
+            throw ValidationException::withMessages([
+                'business_setting' => 'No business setting found. Please configure business settings first.',
+            ]);
+        }
+
         $validatedData['business_id'] = $businessSetting->id;
 
-        $department = Department::create($validatedData);
+        Department::create($validatedData);
 
-        return response()->json($department, 201);
+        return Redirect::route('departments.index')->with('success', 'Department created successfully.');
     }
 
     /**
@@ -67,9 +64,6 @@ class DepartmentController extends Controller
      */
     public function show(string $id)
     {
-        if (! Auth::check()) {
-            return response()->json(['message' => 'Unauthenticated.'], 401);
-        }
         Auth::user()->can('view departments');
 
         $department = Department::findOrFail($id);
@@ -81,9 +75,6 @@ class DepartmentController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        if (! Auth::check()) {
-            return response()->json(['message' => 'Unauthenticated.'], 401);
-        }
         Auth::user()->can('edit departments');
 
         $department = Department::findOrFail($id);
@@ -103,7 +94,7 @@ class DepartmentController extends Controller
 
         $department->update($validatedData);
 
-        return response()->json($department);
+        return Redirect::route('departments.index')->with('success', 'Department updated successfully.');
     }
 
     /**
@@ -111,14 +102,11 @@ class DepartmentController extends Controller
      */
     public function destroy(string $id)
     {
-        if (! Auth::check()) {
-            return response()->json(['message' => 'Unauthenticated.'], 401);
-        }
         Auth::user()->can('delete departments');
 
         $department = Department::findOrFail($id);
         $department->delete();
 
-        return response()->json(null, 204);
+        return Redirect::route('departments.index')->with('success', 'Department deleted successfully.');
     }
 }

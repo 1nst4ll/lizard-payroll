@@ -1,4 +1,4 @@
-# Payroll Web App: Security Guidelines
+<![CDATA[# Payroll Web App: Security Guidelines
 
 *   **Last Updated:** 2025-06-13 02:05 AM (America/New_York)
 
@@ -46,7 +46,17 @@ For testing strategy, refer to [`docs/testing-strategy.md`](./testing-strategy.m
     *   Invalidating sessions upon logout or password change.
     *   Protecting against session fixation.
 
-### 3.2. Role-Based Access Control (RBAC)
+### 3.2. SPA Authentication (Laravel Sanctum)
+
+The application uses Laravel Sanctum's session-based authentication to secure the communication between the Vue.js frontend and the Laravel backend. This is the primary mechanism for protecting API endpoints.
+
+*   **How it Works:** After a user logs in, Laravel establishes a standard cookie-based session. Subsequent API requests from the frontend automatically include this session cookie, allowing the backend to authenticate the user.
+*   **Critical Configuration:** This pattern requires specific configuration on both the frontend and backend. Refer to the `docs/dev-environment-setup.md` for the exact implementation details. In summary:
+    *   The frontend HTTP client (`axios`) must be configured to send credentials.
+    *   The backend API middleware must be configured to be stateful.
+*   **CSRF Protection:** Laravel's built-in CSRF protection works in conjunction with this method to prevent Cross-Site Request Forgery attacks.
+
+### 3.3. Role-Based Access Control (RBAC)
 
 *   **Granular Permissions:** Implement a robust RBAC system using **Spatie Laravel Permission** to ensure users can only access resources and perform actions permitted by their assigned role (Admin, Manager, Employee).
 *   **Server-Side Enforcement:** All authorization checks must be enforced on the server-side. Client-side checks are for UI/UX only and can be bypassed.
@@ -86,3 +96,4 @@ For testing strategy, refer to [`docs/testing-strategy.md`](./testing-strategy.m
 *   **Code Reviews:** Incorporate security-focused code reviews into the development workflow to identify potential security flaws.
 
 By adhering to these guidelines, the Payroll Web Application can maintain a strong security posture, protecting sensitive data and ensuring the trust of its users.
+]]>

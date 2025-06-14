@@ -3,7 +3,8 @@
 use App\Models\Department;
 use App\Models\Employee;
 use App\Models\JobRole;
-use App\Models\PublicHoliday;
+use App\Http\Controllers\BusinessSettingController;
+use App\Http\Controllers\PublicHolidayController;
 use App\Models\Punch;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -28,19 +29,7 @@ Route::middleware([
     })->name('dashboard');
 
     // Public Holidays
-    Route::get('/holidays', function () {
-        return Inertia::render('PublicHolidays/Index');
-    })->name('holidays.index');
-
-    Route::get('/holidays/create', function () {
-        return Inertia::render('PublicHolidays/Create');
-    })->name('holidays.create');
-
-    Route::get('/holidays/{holiday}/edit', function (PublicHoliday $holiday) {
-        return Inertia::render('PublicHolidays/Edit', [
-            'holiday' => $holiday,
-        ]);
-    })->name('holidays.edit');
+    Route::resource('holidays', PublicHolidayController::class);
 
     // Departments
     Route::get('/departments', function () {
@@ -125,4 +114,8 @@ Route::middleware([
     Route::get('/reports/hours', function () {
         return Inertia::render('Reports/Hours');
     })->name('reports.hours');
+
+    // Business Settings
+    Route::get('/settings/business', [BusinessSettingController::class, 'edit'])->name('settings.business.edit');
+    Route::put('/settings/business', [BusinessSettingController::class, 'update'])->name('settings.business.update');
 });

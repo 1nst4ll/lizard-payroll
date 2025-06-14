@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use App\Models\Punch;
 use App\Models\Employee;
 use Illuminate\Http\Request;
@@ -17,7 +16,7 @@ class PunchController extends Controller
      */
     public function index(Request $request)
     {
-        Auth::user()->can('view punches');
+        $this->authorize('view punches');
 
         $query = Punch::query();
 
@@ -25,11 +24,11 @@ class PunchController extends Controller
             $query->where('employee_id', $request->employeeId);
         }
 
-        if ($request->has('startDate')) {
+        if ($request->filled('startDate')) {
             $query->where('punch_time', '>=', $request->startDate);
         }
 
-        if ($request->has('endDate')) {
+        if ($request->filled('endDate')) {
             $query->where('punch_time', '<=', $request->endDate . ' 23:59:59'); // Include end of day
         }
 
@@ -41,7 +40,7 @@ class PunchController extends Controller
      */
     public function store(Request $request)
     {
-        Auth::user()->can('add punches');
+        $this->authorize('add punches');
 
         try {
             $validatedData = $request->validate([
@@ -67,7 +66,7 @@ class PunchController extends Controller
      */
     public function show(string $id)
     {
-        Auth::user()->can('view punches');
+        $this->authorize('view punches');
 
         $punch = Punch::with('employee')->findOrFail($id);
         return response()->json($punch);
@@ -78,7 +77,7 @@ class PunchController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        Auth::user()->can('edit punches');
+        $this->authorize('edit punches');
 
         $punch = Punch::findOrFail($id);
 
@@ -108,7 +107,7 @@ class PunchController extends Controller
      */
     public function destroy(string $id)
     {
-        Auth::user()->can('delete punches');
+        $this->authorize('delete punches');
 
         $punch = Punch::findOrFail($id);
         $punch->delete();
@@ -121,7 +120,7 @@ class PunchController extends Controller
      */
     public function import(Request $request)
     {
-        Auth::user()->can('import punches');
+        $this->authorize('import punches');
 
         $request->validate([
             'punchFile' => 'required|file|mimes:xlsx,xls,csv',
@@ -145,7 +144,7 @@ class PunchController extends Controller
      */
     public function autofix(Request $request)
     {
-        Auth::user()->can('autofix punches');
+        $this->authorize('autofix punches');
 
         $request->validate([
             'startDate' => 'required|date',

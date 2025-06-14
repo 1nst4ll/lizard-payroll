@@ -6,6 +6,7 @@ use App\Models\PublicHoliday;
 use App\Models\BusinessSetting; // Assuming holidays are tied to a business setting
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Validation\ValidationException;
 
 class PublicHolidayController extends Controller
@@ -15,10 +16,7 @@ class PublicHolidayController extends Controller
      */
     public function index(Request $request)
     {
-        if (! Auth::check()) {
-            return response()->json(['message' => 'Unauthenticated.'], 401);
-        }
-        Auth::user()->can('view public holidays');
+        $this->authorize('view public holidays');
 
         $query = PublicHoliday::query();
 
@@ -26,7 +24,21 @@ class PublicHolidayController extends Controller
             $query->whereYear('holiday_date', $request->year);
         }
 
-        return response()->json($query->get());
+        // This should return an Inertia view, not JSON, for a web route.
+        // Assuming you have a 'PublicHolidays/Index' Vue component.
+        return inertia('PublicHolidays/Index', [
+            'holidays' => $query->get(),
+        ]);
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        $this->authorize('create public holidays');
+
+        return inertia('PublicHolidays/Create');
     }
 
     /**
@@ -34,84 +46,80 @@ class PublicHolidayController extends Controller
      */
     public function store(Request $request)
     {
-        Auth::user()->can('create public holidays');
+        $this->authorize('create public holidays');
 
-        try {
-            $validatedData = $request->validate([
-                'holiday_name' => 'required|string|max:255',
-                'holiday_date' => 'required|date',
+        $validatedData = $request->validate([
+            'holiday_name' => 'required|string|max:255',
+            'holiday_date' => 'required|date',
+        ]);
+
+        $businessSetting = BusinessSetting::first();
+
+        if (!$businessSetting) {
+            throw ValidationException::withMessages([
+                'business_setting' => 'No business setting found. Please configure business settings first.',
             ]);
-        } catch (ValidationException $e) {
-            return response()->json([
-                'statusCode' => 400,
-                'message' => 'Validation failed',
-                'errors' => $e->errors(),
-            ], 400);
         }
 
-        // Associate with the first business setting found, or create one with default values
-        $businessSetting = BusinessSetting::firstOrCreate(
-            [], // Attributes to search for (empty to always create if none exist)
-            [
-                'business_name' => 'Default Business', // Provide a default value
-                'time_zone' => 'UTC', // Provide a default value
-            ]
-        );
         $validatedData['business_id'] = $businessSetting->id;
 
-        $holiday = PublicHoliday::create($validatedData);
+        PublicHoliday::create($validatedData);
 
-        return response()->json($holiday, 201);
+        return Redirect::route('holidays.index')->with('message', 'Holiday created successfully.');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(PublicHoliday $holiday)
     {
-        Auth::user()->can('view public holidays');
+        $this->authorize('view public holidays');
 
-        $holiday = PublicHoliday::findOrFail($id);
-        return response()->json($holiday);
+        // This should return an Inertia view, not JSON.
+        // Assuming you have a 'PublicHolidays/Show' Vue component.
+        return inertia('PublicHolidays/Show', [
+            'holiday' => $holiday,
+        ]);
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(PublicHoliday $holiday)
+    {
+        $this->authorize('edit public holidays');
+
+        return inertia('PublicHolidays/Edit', [
+            'holiday' => $holiday,
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, PublicHoliday $holiday)
     {
-        Auth::user()->can('edit public holidays');
+        $this->authorize('edit public holidays');
 
-        $holiday = PublicHoliday::findOrFail($id);
-
-        try {
-            $validatedData = $request->validate([
-                'holiday_name' => 'sometimes|required|string|max:255',
-                'holiday_date' => 'sometimes|required|date',
-            ]);
-        } catch (ValidationException $e) {
-            return response()->json([
-                'statusCode' => 400,
-                'message' => 'Validation failed',
-                'errors' => $e->errors(),
-            ], 400);
-        }
+        $validatedData = $request->validate([
+            'holiday_name' => 'sometimes|required|string|max:255',
+            'holiday_date' => 'sometimes|required|date',
+        ]);
 
         $holiday->update($validatedData);
 
-        return response()->json($holiday);
+        return Redirect::route('holidays.index')->with('message', 'Holiday updated successfully.');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(PublicHoliday $holiday)
     {
-        Auth::user()->can('delete public holidays');
+        $this->authorize('delete public holidays');
 
-        $holiday = PublicHoliday::findOrFail($id);
         $holiday->delete();
 
-        return response()->json(null, 204);
+        return Redirect::route('holidays.index')->with('message', 'Holiday deleted successfully.');
     }
 }

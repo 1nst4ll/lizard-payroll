@@ -1,6 +1,7 @@
 <script setup>
-import { ref } from 'vue';
-import { Head, Link, router } from '@inertiajs/vue3';
+import { ref, watch } from 'vue';
+import { Head, Link, router, usePage } from '@inertiajs/vue3';
+import { useToast } from 'vue-toastification';
 import ApplicationMark from '@/Components/ApplicationMark.vue';
 import Banner from '@/Components/Banner.vue';
 import Dropdown from '@/Components/Dropdown.vue';
@@ -10,6 +11,15 @@ import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
 
 defineProps({
     title: String,
+});
+
+const page = usePage();
+const toast = useToast();
+
+watch(() => page.props.flash?.message, (newValue) => {
+    if (newValue) {
+        toast.success(newValue);
+    }
 });
 
 const showingNavigationDropdown = ref(false);
@@ -50,6 +60,9 @@ const logout = () => {
                             <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                                 <NavLink :href="route('dashboard')" :active="route().current('dashboard')">
                                     Dashboard
+                                </NavLink>
+                                <NavLink :href="route('settings.business.edit')" :active="route().current('settings.business.edit')">
+                                    Business Settings
                                 </NavLink>
                                 <NavLink :href="route('holidays.index')" :active="route().current('holidays.index')">
                                     Public Holidays
