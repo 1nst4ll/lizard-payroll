@@ -1,5 +1,14 @@
 # Product Context: Why This System Exists
 
+*Built on the foundation defined in [projectbrief.md](projectbrief.md)*
+
+## Related Documentation
+- **Project Foundation:** [projectbrief.md](projectbrief.md) - Core requirements and scope
+- **Technical Implementation:** [systemPatterns.md](systemPatterns.md) - How we solve these problems
+- **Technology Stack:** [techContext.md](techContext.md) - Tools and frameworks used
+- **User Experience:** [uiuxContext.md](uiuxContext.md) - Interface design for these workflows
+- **Current Work:** [activeContext.md](activeContext.md) - What we're building now
+
 ## The Problem We're Solving
 
 ### Current Pain Points

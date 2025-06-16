@@ -1,5 +1,14 @@
 # Project Brief: Turks Kebab Restaurant Management System
 
+*This is the foundation document that shapes all other Memory Bank files.*
+
+## Related Documentation
+- **Why This Exists:** [productContext.md](productContext.md) - Business problems and solution approach
+- **How It Works:** [systemPatterns.md](systemPatterns.md) - Technical architecture and patterns
+- **Technology:** [techContext.md](techContext.md) - Implementation stack and tools
+- **User Experience:** [uiuxContext.md](uiuxContext.md) - Design system and workflows
+- **Current Status:** [activeContext.md](activeContext.md) & [progress.md](progress.md)
+
 ## Project Overview
 **Project Name:** Lizard Payroll (Turks Kebab Restaurant Management System)  
 **Location:** D:\ClaudeMCP\!projects\lizard-payroll  

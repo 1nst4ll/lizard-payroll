@@ -1,5 +1,14 @@
 # System Patterns and Architecture
 
+*Technical implementation of requirements from [projectbrief.md](projectbrief.md) and problems outlined in [productContext.md](productContext.md)*
+
+## Related Documentation
+- **Business Requirements:** [projectbrief.md](projectbrief.md) - What we need to build
+- **Problem Analysis:** [productContext.md](productContext.md) - Why we need these patterns
+- **Technology Stack:** [techContext.md](techContext.md) - Tools implementing these patterns
+- **User Interface:** [uiuxContext.md](uiuxContext.md) - How users interact with this architecture
+- **Implementation Status:** [progress.md](progress.md) - Which patterns are built
+
 ## Core Architecture Pattern
 
 ### MVC with Service Layer Architecture

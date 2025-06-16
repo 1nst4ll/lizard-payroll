@@ -1,5 +1,13 @@
 # UI/UX Context: Design System and User Experience
 
+*User interface design implementing the workflows from [productContext.md](productContext.md) using technologies from [techContext.md](techContext.md)*
+
+## Related Documentation
+- **User Requirements:** [projectbrief.md](projectbrief.md) - Success criteria and user types
+- **User Workflows:** [productContext.md](productContext.md) - Business processes being designed
+- **Technical Foundation:** [techContext.md](techContext.md) - Frontend technologies and components
+- **Architecture:** [systemPatterns.md](systemPatterns.md) - System structure supporting these interfaces
+
 ## Design Philosophy
 
 ### User-Centric Approach

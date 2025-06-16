@@ -1,5 +1,13 @@
 # Technical Context: Technology Stack and Implementation Details
 
+*Technology choices implementing the architecture from [systemPatterns.md](systemPatterns.md)*
+
+## Related Documentation
+- **Business Requirements:** [projectbrief.md](projectbrief.md) - Technical constraints and requirements
+- **Architecture Foundation:** [systemPatterns.md](systemPatterns.md) - Patterns implemented by this stack
+- **User Interface:** [uiuxContext.md](uiuxContext.md) - Frontend components and design system
+- **Current Status:** [activeContext.md](activeContext.md) - Technology setup progress
+
 ## Core Technology Stack
 
 ### Backend Framework
