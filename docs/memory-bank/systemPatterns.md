@@ -250,11 +250,15 @@ class TimeClockService {
 
 ## Testing Patterns
 
-### Service Testing Strategy
+### Service Testing Strategy (Pest Framework)
 ```php
-class PayrollServiceTest extends TestCase {
-    // Use factories for test data
-    public function test_calculates_overtime_correctly() {
+// Using Pest's elegant syntax for payroll calculations
+describe('PayrollService', function () {
+    beforeEach(function () {
+        $this->payrollService = app(PayrollService::class);
+    });
+    
+    it('calculates overtime correctly for hourly employees', function () {
         $employee = Employee::factory()->hourly()->create(['hourly_rate' => 20]);
         $workPairs = WorkPair::factory()->count(3)->create([
             'employee_id' => $employee->id,
@@ -263,26 +267,86 @@ class PayrollServiceTest extends TestCase {
         
         $result = $this->payrollService->calculatePayroll($employee, $workPairs);
         
-        $this->assertEquals(44 * 20, $result->regular_pay); // 44 hours at $20
-        $this->assertEquals(4 * 30, $result->overtime_pay); // 4 hours at $30 (1.5x)
-    }
-}
+        expect($result->regular_pay)->toBe(44 * 20) // 44 hours at $20
+            ->and($result->overtime_pay)->toBe(4 * 30); // 4 hours at $30 (1.5x)
+    });
+    
+    it('handles holiday pay calculations correctly', function () {
+        // Test holiday pay with 2x multiplier
+        $employee = Employee::factory()->create(['hourly_rate' => 15]);
+        $holidayDate = '2024-07-04'; // Independence Day
+        
+        $workPair = WorkPair::factory()->create([
+            'employee_id' => $employee->id,
+            'work_date' => $holidayDate,
+            'net_hours' => 8
+        ]);
+        
+        $result = $this->payrollService->calculateHolidayPay($employee, [$workPair]);
+        
+        expect($result)->toBe(8 * 15 * 2); // 8 hours at $15 * 2x multiplier
+    });
+});
 ```
 
-### Integration Testing
+### Integration Testing with Pest
 ```php
-class PayrollProcessingTest extends TestCase {
-    use RefreshDatabase;
+describe('Payroll Processing Integration', function () {
+    uses(RefreshDatabase::class);
     
-    public function test_complete_payroll_processing_flow() {
-        // Test the entire flow from time data upload to final payroll
-        $this->uploadTimeData()
-             ->processPayPeriod()
-             ->assertPayrollCalculated()
-             ->assertTipsDistributed()
-             ->assertComplianceCalculated();
-    }
-}
+    it('processes complete payroll flow from upload to export')
+        ->expect(fn() => $this->uploadTimeClockFile())
+        ->toPassValidation()
+        ->and(fn() => $this->processPayPeriod())
+        ->toCompleteSuccessfully()
+        ->and(fn() => $this->generatePaystubs())
+        ->toCreateValidPDFs()
+        ->and(fn() => $this->exportToQuickBooks())
+        ->toGenerateValidIIFFile();
+        
+    it('handles time clock corrections properly', function () {
+        // Upload problematic time data
+        $timeEntries = [
+            ['employee_id' => 1, 'datetime' => '2024-01-01 08:00:00', 'direction' => 'IN'],
+            ['employee_id' => 1, 'datetime' => '2024-01-01 08:00:00', 'direction' => 'IN'], // Duplicate
+            ['employee_id' => 1, 'datetime' => '2024-01-01 17:00:00', 'direction' => 'OUT']
+        ];
+        
+        $result = $this->timeClockService->processTimeEntries($timeEntries);
+        
+        expect($result->corrections_applied)->toHaveCount(1)
+            ->and($result->final_work_pairs)->toHaveCount(1)
+            ->and($result->final_work_pairs[0]->net_hours)->toBe(9.0);
+    });
+});
+```
+
+### Feature Testing with Pest Expectations
+```php
+describe('Government Compliance Features', function () {
+    it('calculates NIB contributions correctly for different employee types', function () {
+        $scenarios = [
+            ['wage' => 1000, 'expected_nib' => 50], // Standard rate
+            ['wage' => 5000, 'expected_nib' => 250], // Higher wage
+            ['wage' => 10000, 'expected_nib' => 500] // Maximum contribution
+        ];
+        
+        foreach ($scenarios as $scenario) {
+            $payroll = PayrollRecord::factory()->create(['gross_pay' => $scenario['wage']]);
+            $nib = $this->complianceService->calculateNIBContribution($payroll);
+            
+            expect($nib->amount)->toBe($scenario['expected_nib']);
+        }
+    });
+    
+    it('validates employee eligibility for government programs', function () {
+        $tcEmployee = Employee::factory()->create(['citizenship_status' => 'TC']);
+        $workPermitEmployee = Employee::factory()->create(['citizenship_status' => 'WP']);
+        
+        expect($this->complianceService->isEligibleForNIB($tcEmployee))->toBeTrue()
+            ->and($this->complianceService->isEligibleForNIB($workPermitEmployee))->toBeFalse();
+    });
+});
 ```
 
 ## Integration Patterns

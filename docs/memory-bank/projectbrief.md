@@ -39,7 +39,7 @@ Develop a comprehensive web-based restaurant management system that integrates t
 - **File Processing:** Laravel Excel 3.1
 - **PDF Generation:** DomPDF 1.2.2 / Snappy 1.0.7
 - **Security:** Spatie Permissions 5.8
-- **Testing:** PHPUnit 10.0 + Jest 29.5 + Dusk 10.5
+- **Testing:** Pest (Latest) + Jest 29.5 + Dusk 10.5
 
 ## Core Functional Requirements
 1. **Employee Management:** Complete employee profiles with compliance status

@@ -109,26 +109,71 @@ ext-bcmath       // Precise decimal calculations
 ext-intl         // Internationalization
 ```
 
-### Node.js Dependencies
+### PHP Testing Dependencies - ACTUALLY INSTALLED
+```json
+// composer.json testing dependencies
+{
+  "require": {
+    "php": "^8.2",
+    "barryvdh/laravel-dompdf": "^3.1",
+    "brick/math": "^0.13.1",
+    "inertiajs/inertia-laravel": "^2.0",
+    "laravel/framework": "^12.0",
+    "laravel/jetstream": "^5.3",
+    "laravel/sanctum": "^4.0",
+    "laravel/tinker": "^2.10.1",
+    "phpoffice/phpspreadsheet": "^4.3",
+    "spatie/laravel-permission": "^6.20",
+    "tightenco/ziggy": "^2.0"
+  },
+  "require-dev": {
+    "fakerphp/faker": "^1.23",
+    "laravel/pail": "^1.2.2",
+    "laravel/pint": "^1.13",
+    "laravel/sail": "^1.41",
+    "mockery/mockery": "^1.6",
+    "nunomaduro/collision": "^8.6",
+    "pestphp/pest": "^3.8",
+    "pestphp/pest-plugin-laravel": "^3.2"
+  }
+}
+```
+
+### Node.js Dependencies - ACTUALLY INSTALLED
 ```json
 {
-  "vue": "^3.3.0",
-  "@inertiajs/vue3": "^1.3.0",
-  "typescript": "^5.0.0",
-  "vue-tsc": "^1.8.0",
-  "vite": "^4.0.0",
-  "@vitejs/plugin-vue": "^4.0.0",
-  "tailwindcss": "^4.0.0",
-  "@tailwindcss/typography": "^0.5.0",
-  "autoprefixer": "^10.4.0",
-  "postcss": "^8.4.0",
-  "ziggy-js": "^2.0.0",
-  "shadcn-vue": "^0.10.0",
-  "@radix-ui/vue": "^1.0.0",
-  "class-variance-authority": "^0.7.0",
-  "clsx": "^2.0.0",
-  "tailwind-merge": "^2.0.0",
-  "lucide-vue-next": "^0.295.0"
+  "devDependencies": {
+    "@inertiajs/vue3": "^2.0",
+    "@tailwindcss/forms": "^0.5.7",
+    "@tailwindcss/typography": "^0.5.10", 
+    "@tailwindcss/vite": "^4.0.0",
+    "@types/node": "^24.0.1",
+    "@types/ziggy-js": "^1.3.3",
+    "@vitejs/plugin-vue": "^5.0.0",
+    "@vue/server-renderer": "^3.3.13",
+    "autoprefixer": "^10.4.16",
+    "axios": "^1.8.2",
+    "concurrently": "^9.0.1",
+    "laravel-vite-plugin": "^1.2.0",
+    "postcss": "^8.4.32",
+    "tailwindcss": "^3.4.0",
+    "typescript": "^5.8.3",
+    "vite": "^6.2.4",
+    "vue": "^3.3.13",
+    "vue-tsc": "^2.2.10"
+  },
+  "dependencies": {
+    "@vee-validate/zod": "^4.15.1",
+    "@vueuse/core": "^13.3.0",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "lucide-vue-next": "^0.515.0",
+    "reka-ui": "^2.3.1",
+    "tailwind-merge": "^3.3.1",
+    "tailwindcss-animate": "^1.0.7",
+    "vee-validate": "^4.15.1",
+    "zod": "^3.25.64"
+  }
 }
 ```
 
@@ -233,9 +278,8 @@ Admin > Manager > Supervisor > Employee
 
 ### Testing Stack
 **Backend Testing:**
-- **PHPUnit 10.0:** Unit and integration tests
+- **Pest (Latest):** Primary testing framework with elegant syntax for unit and integration tests
 - **Laravel Dusk 10.5:** Browser automation tests
-- **Pest (optional):** Alternative syntax for more readable tests
 
 **Frontend Testing:**
 - **Jest 29.5:** JavaScript unit tests
@@ -249,6 +293,58 @@ Unit Tests:        95%+ for services and models
 Integration Tests: 90%+ for controllers and APIs
 Feature Tests:     100% for critical financial calculations
 Browser Tests:     100% for user workflows
+
+// Pest testing examples (clean, expressive syntax)
+it('calculates overtime correctly', function () {
+    $employee = Employee::factory()->hourly()->create(['hourly_rate' => 20]);
+    $workPairs = WorkPair::factory()->count(3)->create([
+        'employee_id' => $employee->id,
+        'net_hours' => 16 // Total 48 hours
+    ]);
+    
+    $result = $this->payrollService->calculatePayroll($employee, $workPairs);
+    
+    expect($result->regular_pay)->toBe(44 * 20) // 44 hours at $20
+        ->and($result->overtime_pay)->toBe(4 * 30); // 4 hours at $30 (1.5x)
+});
+
+// Pest feature testing with chained expectations
+it('processes complete payroll flow correctly')
+    ->expect(fn() => $this->uploadTimeData())
+    ->and(fn() => $this->processPayPeriod())
+    ->and(fn() => $this->assertPayrollCalculated())
+    ->and(fn() => $this->assertTipsDistributed())
+    ->and(fn() => $this->assertComplianceCalculated());
+```
+
+### Pest Configuration
+```php
+// tests/Pest.php configuration
+<?php
+
+uses(Tests\TestCase::class)->in('Feature');
+uses(Tests\TestCase::class)->in('Unit');
+
+// Custom expectations for financial calculations
+expect()->extend('toBeValidCurrency', function () {
+    return $this->toMatch('/^\d+\.\d{2}$/');
+});
+
+expect()->extend('toBePositiveAmount', function () {
+    return $this->toBeGreaterThan(0);
+});
+
+// Global helper functions for payroll testing
+function createEmployeeWithRate(float $rate): Employee {
+    return Employee::factory()->create(['hourly_rate' => $rate]);
+}
+
+function createWorkPairsForHours(Employee $employee, float $hours): Collection {
+    return WorkPair::factory()->create([
+        'employee_id' => $employee->id,
+        'net_hours' => $hours
+    ]);
+}
 ```
 
 ## Deployment Configuration
@@ -319,7 +415,15 @@ cp .env.example .env
 php artisan key:generate
 php artisan migrate:fresh --seed
 
+# Install Pest testing framework
+composer require pestphp/pest --dev --with-all-dependencies
+composer require pestphp/pest-plugin-laravel --dev
+./vendor/bin/pest --init
+
 # Development server
 php artisan serve
 npm run dev
+
+# Run tests
+./vendor/bin/pest
 ```
