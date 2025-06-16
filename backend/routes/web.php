@@ -21,4 +21,11 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return Inertia::render('Dashboard');
     })->name('dashboard');
+
+    // Employee Management Routes
+    Route::resource('employees', \App\Http\Controllers\EmployeeController::class);
+    Route::get('employees/expiring-work-permits', [\App\Http\Controllers\EmployeeController::class, 'expiringWorkPermits'])
+         ->name('employees.expiring-work-permits');
+    Route::post('employees/{id}/restore', [\App\Http\Controllers\EmployeeController::class, 'restore'])
+         ->name('employees.restore');
 });
